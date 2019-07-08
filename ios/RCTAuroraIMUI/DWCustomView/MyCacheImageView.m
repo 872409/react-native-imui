@@ -5,7 +5,7 @@
 //
 
 #import "MyCacheImageView.h"
-//test
+//test v1.2.0
 #import "SDWebImage/UIImageView+WebCache.h"
 
 @implementation MyCacheImageView

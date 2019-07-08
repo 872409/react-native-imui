@@ -24,7 +24,7 @@ open class IMUIMessageCellLayout: NSObject, IMUIMessageCellLayoutProtocal {
   
   @objc public static var nameLabelSize: CGSize = CGSize(width: 200, height: 18)
   
-  @objc public static var nameLabelOffsetToAvatar: UIOffset = UIOffset(horizontal: 4 , vertical: 0)
+  @objc public static var nameLabelOffsetToAvatar: UIOffset = UIOffset(horizontal: 4 , vertical: -2)
   
   @objc public static var bubbleOffsetToAvatar: UIOffset = UIOffset(horizontal: 4 , vertical: 0)
   

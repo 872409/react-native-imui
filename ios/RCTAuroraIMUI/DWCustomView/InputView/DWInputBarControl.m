@@ -13,7 +13,8 @@
 //#import "DWAudioRecorderManager.h"
 #import <AVFoundation/AVFoundation.h>
 
-#define toolBackColor [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1.0];
+//#define toolBackColor [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1.0];
+#define toolBackColor [UIColor colorWithHue:0.29 saturation:0.00 brightness:0.96 alpha:1.00];
 
 @interface DWInputBarControl ()<HPGrowingTextViewDelegate,NIMInputEmoticonProtocol>{
     UIView *line;
@@ -168,10 +169,10 @@
     [_toolView addSubview:_showRecordeBtn];
     
     _inputGrowView = [[HPGrowingTextView alloc]init];
-    _inputGrowView.backgroundColor = toolBackColor;
+    _inputGrowView.backgroundColor = [UIColor colorWithHue:0.29 saturation:0.00 brightness:1.00 alpha:1.00];
     _inputGrowView.layer.cornerRadius = 5.0f;
     _inputGrowView.layer.masksToBounds = YES;
-    _inputGrowView.layer.borderColor = [UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:1.0].CGColor;
+    _inputGrowView.layer.borderColor = _toolView.backgroundColor.CGColor;
     _inputGrowView.layer.borderWidth = 1;
 //    _inputGrowView.minNumberOfLines = 0.5;
     _inputGrowView.maxNumberOfLines = 4;

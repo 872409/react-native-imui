@@ -1,3 +1,6 @@
+#ReactNative IMUI X
+项目fork自  [react-native-imui](https://github.com/reactnativecomponent/react-native-imui)
+
 # ReactNative IMUI
 项目fork自 jpush 的 [Aurora IMUI](https://github.com/jpush/aurora-imui/tree/master/ReactNative)
 

@@ -44,8 +44,8 @@ class IMUIUnKnownMessageCell: IMUIBaseMessageCell {
     
     @objc func clickTapUpdateBtn() {
         
-        let url:URL = URL.init(string: "https://itunes.apple.com/cn/app/%E9%A3%9E%E9%A9%AC%E9%92%B1%E5%8C%85/id1172713122?mt=8")!
-        UIApplication.shared.openURL(url)
+//        let url:URL = URL.init(string: "https://itunes.apple.com/cn/app/%E9%A3%9E%E9%A9%AC%E9%92%B1%E5%8C%85/id1172713122?mt=8")!
+//        UIApplication.shared.openURL(url)
     }
     
     override func presentCell(with message: IMUIMessageModelProtocol, viewCache: IMUIReuseViewCache , delegate: IMUIMessageMessageCollectionViewDelegate?) {

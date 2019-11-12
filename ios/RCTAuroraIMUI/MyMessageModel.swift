@@ -17,9 +17,9 @@ open class RCTMessageModel: IMUIMessageModel {
   static let kMsgStatusFail = "send_failed"
   static let kMsgStatusDownloadFail = "download_failed"
   static let kMsgStatusDownloading = "downloading"
-  
 
-  
+
+
   static let kMsgKeyMsgType = "msgType"
   static let kMsgTypeText = "text"
   static let kMsgTypeVoice = "voice"
@@ -35,8 +35,8 @@ open class RCTMessageModel: IMUIMessageModel {
     static let kMsgTypeCard = "card"
     static let kMsgTypeUnKnow = "unknown"
     static let kMsgTypeCustom = "custom"
-    
-    
+
+
   static let kMsgKeyMsgId = "msgId"
   static let kMsgKeyFromUser = "fromUser"
   static let kMsgKeyText = "text"
@@ -47,18 +47,18 @@ open class RCTMessageModel: IMUIMessageModel {
   static let kUserKeyDisplayName = "name"
   static let kUserAvatarPath = "avatar"
     static let kMsgKeyExtend = "extend"
-  
+
   static let ktimeString = "timeString"
   static let ktime = "time"
     static let kisShowTime = "isShowTime"
-  
-  
+
+
   open var myTextMessage: String = ""
-  
+
   var mediaPath: String = ""
     var coverUrl: String = ""
     var videoUrl: String = ""
-  
+
   override open func mediaFilePath() -> String {
     return mediaPath
   }
@@ -68,15 +68,16 @@ open class RCTMessageModel: IMUIMessageModel {
     bubbleImg = bubbleImg?.resizableImage(withCapInsets: UIEdgeInsets(top: 24, left: 10, bottom: 9, right: 15), resizingMode: .tile)
     return bubbleImg!
   }()
-  
+
   @objc static public var incommingBubbleImage: UIImage = {
     var bubbleImg = UIImage.imuiImage(with: "inComing_bubble")
     bubbleImg = bubbleImg?.resizableImage(withCapInsets: UIEdgeInsets(top: 24, left: 15, bottom: 9, right: 10), resizingMode: .tile)
     return bubbleImg!
   }()
+
   //时间戳转时间
   @objc static func timeStampToString(timeStamp:String)->String {
-        
+
         let string = NSString(string: timeStamp)
         let timeSta:TimeInterval = string.doubleValue
         let nowDate = Date.init()
@@ -86,7 +87,7 @@ open class RCTMessageModel: IMUIMessageModel {
         let components = [Calendar.Component.day,Calendar.Component.month,Calendar.Component.year,Calendar.Component.weekday,Calendar.Component.hour,Calendar.Component.minute] as Set<Calendar.Component>
         let nowDateComponents = calendar.dateComponents(components, from: nowDate)
         let msgDateComponents = calendar.dateComponents(components, from: msgDate as Date)
-    
+
         var hour :Int = msgDateComponents.hour!
         let min :Int = msgDateComponents.minute!
         result = getPeriodOfTime(hour: hour, minute: min)
@@ -94,7 +95,7 @@ open class RCTMessageModel: IMUIMessageModel {
         if min < 10 {
             strMin = "0\(min)"
         }
-    
+
         if(hour > 12){
             hour = hour - 12
         }
@@ -119,7 +120,7 @@ open class RCTMessageModel: IMUIMessageModel {
         }
         return result
     }
-    
+
   @objc  static func getPeriodOfTime(hour:Int, minute:Int)->String{
         let totalMin = hour * 60 + minute
         var showPeriodOfTime = ""
@@ -137,13 +138,13 @@ open class RCTMessageModel: IMUIMessageModel {
         }
         return showPeriodOfTime
     }
-    
+
    @objc static func weekdayStr(dayOfWeek:Int)->String{
         let daysOfWeekDict:Dictionary<Int,String> = [1:"星期日", 2:"星期一", 3:"星期二", 4:"星期三", 5:"星期四", 6:"星期五", 7:"星期六"];
         return daysOfWeekDict[dayOfWeek]!
     }
-    
-    
+
+
   @objc override open var resizableBubbleImage: UIImage {
     // return defoult message bubble
     if isOutGoing {
@@ -152,17 +153,17 @@ open class RCTMessageModel: IMUIMessageModel {
       return RCTMessageModel.incommingBubbleImage
     }
   }
-  
+
  @objc public init(msgId: String, messageStatus: IMUIMessageStatus, fromUser: RCTUser, isOutGoing: Bool, time: String, status: IMUIMessageStatus, type: IMUIMessageType, text: String, mediaPath: String, layout: IMUIMessageCellLayoutProtocal?,customDict: NSMutableDictionary, timeStamp:String) {
-    
+
     self.myTextMessage = text
     self.mediaPath = mediaPath
-    
+
     super.init(msgId: msgId, messageStatus: messageStatus, fromUser: fromUser, isOutGoing: isOutGoing, time: time, status: status, type: type, cellLayout: layout ,customDict: customDict, timeStamp: timeStamp)
   }
-  
+
   @objc public convenience init(messageDic: NSMutableDictionary) {
-    
+
     let msgId = messageDic.object(forKey: RCTMessageModel.kMsgKeyMsgId) as! String
     let msgTypeString = messageDic.object(forKey: RCTMessageModel.kMsgKeyMsgType) as? String
     let statusString = messageDic.object(forKey: RCTMessageModel.kMsgKeyStatus) as? String
@@ -188,25 +189,25 @@ open class RCTMessageModel: IMUIMessageModel {
 
     var mediaPath = messageDic.object(forKey: RCTMessageModel.kMsgKeyMediaFilePath) as? String
     if let _ = mediaPath {
-      
+
     } else {
       mediaPath = ""
     }
-    
+
     var text = messageDic.object(forKey: RCTMessageModel.kMsgKeyText) as? String
     if let _ = text {
-      
+
     } else {
       text = ""
     }
-    
+
     var msgType: IMUIMessageType?
     // TODO: duration
     let userDic = messageDic.object(forKey: RCTMessageModel.kMsgKeyFromUser) as? NSDictionary
     let user = RCTUser(userDic: userDic!)
-    
+
     var textLayout: MyMessageCellLayout?
-    
+
     if let typeString = msgTypeString {
       if typeString == RCTMessageModel.kMsgTypeText {
         msgType = .text
@@ -217,7 +218,7 @@ open class RCTMessageModel: IMUIMessageModel {
         msgType = .image
         customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyExtend) as! NSMutableDictionary
       }else if typeString == RCTMessageModel.kMsgTypeVoice {
-        
+
         msgType = .voice
         customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyExtend) as! NSMutableDictionary
       }else if typeString == RCTMessageModel.kMsgTypeVideo {
@@ -247,39 +248,39 @@ open class RCTMessageModel: IMUIMessageModel {
       }else{
             msgType = .unknown
         }
-        
+
     }else{
         msgType = .unknown
     }
-    
+
     var msgStatus = IMUIMessageStatus.success
     if let statusString = statusString {
-      
+
       if statusString == RCTMessageModel.kMsgStatusSuccess {
         msgStatus = .success
       }
-      
+
       if statusString == RCTMessageModel.kMsgStatusFail {
         msgStatus = .failed
       }
-      
+
       if statusString == RCTMessageModel.kMsgStatusSending {
         msgStatus = .sending
       }
-      
+
       if statusString == RCTMessageModel.kMsgStatusDownloadFail {
         msgStatus = .mediaDownloadFail
       }
-      
+
       if statusString == RCTMessageModel.kMsgStatusDownloading {
         msgStatus = .mediaDownloading
       }
-      
+
     }
     self.init(msgId: msgId, messageStatus: msgStatus, fromUser: user, isOutGoing: isOutgoing!, time: strTime, status: msgStatus, type: msgType!, text: text!, mediaPath: mediaPath!, layout:  textLayout ,customDict: customDict, timeStamp:timeStamp! )
 
   }
-  
+
     convenience init(msgId: String, text: String, isOutGoing: Bool, user: RCTUser, customDict:NSMutableDictionary, timeStamp: String) {
 
     let myLayout = MyMessageCellLayout(isOutGoingMessage: isOutGoing,
@@ -292,36 +293,36 @@ open class RCTMessageModel: IMUIMessageModel {
   convenience init(msgId: String, voicePath: String, isOutGoing: Bool, user: RCTUser, customDict:NSMutableDictionary, timeStamp: String) {
     self.init(msgId: msgId, messageStatus: .sending, fromUser: user, isOutGoing: isOutGoing, time: "", status: .success, type: .voice, text: "", mediaPath: voicePath, layout:  nil, customDict: customDict, timeStamp: timeStamp)
   }
-  
+
   convenience init(msgId: String, imagePath: String, isOutGoing: Bool, user: RCTUser, customDict:NSMutableDictionary, timeStamp: String) {
     self.init(msgId: msgId, messageStatus: .sending, fromUser: user, isOutGoing: isOutGoing, time: "", status: .success, type: .image, text: "", mediaPath: imagePath, layout:  nil, customDict: customDict, timeStamp: timeStamp)
   }
-  
+
   convenience init(msgId: String, videoPath: String, isOutGoing: Bool, user: RCTUser, customDict:NSMutableDictionary, timeStamp: String) {
     self.init(msgId: msgId, messageStatus: .sending, fromUser: user, isOutGoing: isOutGoing, time: "", status: .success, type: .video, text: "", mediaPath: videoPath, layout:  nil, customDict: customDict, timeStamp: timeStamp)
   }
-  
+
   override open func text() -> String {
     return self.myTextMessage
   }
-  
+
   @objc static func calculateTextContentSize(text: String, isOutGoing: Bool) -> CGSize {
     let tmpLabel = YYLabel()
     tmpLabel.font = IMUITextMessageCell.inComingTextFont
  tmpLabel.setupYYText(text, andUnunderlineColor: UIColor.white)
 //    return tmpLabel.sizeThatFits(CGSize(width: IMUIMessageCellLayout.bubbleMaxWidth, height: CGFloat(MAXFLOAT)))
     return tmpLabel.getTheLabelBubble(CGSize(width: IMUIMessageCellLayout.bubbleMaxWidth, height: CGFloat(MAXFLOAT)))
-    
+
 //    if isOutGoing {
 //      return text.sizeWithConstrainedWidth(with: IMUIMessageCellLayout.bubbleMaxWidth, font: IMUITextMessageCell.outGoingTextFont)
 //    } else {
 //      return text.sizeWithConstrainedWidth(with: IMUIMessageCellLayout.bubbleMaxWidth, font: IMUITextMessageCell.inComingTextFont)
 //    }
   }
-  
+
    @objc public var messageDictionary: NSMutableDictionary {
     get {
-      
+
       var messageDic = NSMutableDictionary()
       messageDic.setValue(self.msgId, forKey: RCTMessageModel.kMsgKeyMsgId)
       messageDic.setValue(self.isOutGoing, forKey: RCTMessageModel.kMsgKeyisOutgoing)
@@ -387,11 +388,11 @@ open class RCTMessageModel: IMUIMessageModel {
         messageDic.setValue(RCTMessageModel.kMsgTypeCustom, forKey: RCTMessageModel.kMsgKeyMsgType)
         messageDic.setValue(self.customDict, forKey: RCTMessageModel.kMsgKeyExtend)
         break
-        
+
       default:
         break
       }
-      
+
       var msgStatus = ""
       switch self.status {
       case .success:
@@ -410,14 +411,14 @@ open class RCTMessageModel: IMUIMessageModel {
         msgStatus = RCTMessageModel.kMsgStatusDownloadFail
         break
       }
-      
+
       messageDic.setValue(msgStatus, forKey: "status")
       let userDic = NSMutableDictionary()
       userDic.setValue(self.fromUser.userId(), forKey: "_id")
       userDic.setValue(self.fromUser.displayName(), forKey: "name")
       let user = self.fromUser as! RCTUser
       userDic.setValue(user.rAvatarFilePath, forKey: "avatar")
-      
+
       messageDic.setValue(userDic, forKey: "fromUser")
       messageDic.setValue(self.msgId, forKey: "msgId")
       return messageDic
@@ -433,12 +434,12 @@ public class MyMessageCellLayout: IMUIMessageCellLayout {
  @objc public static var outgoingPadding = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 14)
  @objc public static var incommingPadding = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 8)
 
-  
+
     override init(isOutGoingMessage: Bool, isNeedShowTime: Bool, bubbleContentSize: CGSize, bubbleContentInsets: UIEdgeInsets, showAvatar: Bool) {
-    
+
     super.init(isOutGoingMessage: isOutGoingMessage, isNeedShowTime: isNeedShowTime, bubbleContentSize: bubbleContentSize, bubbleContentInsets: bubbleContentInsets,showAvatar:showAvatar)
   }
-  
+
   open override var bubbleContentInset: UIEdgeInsets {
     if isOutGoingMessage {
       return MyMessageCellLayout.outgoingPadding
@@ -446,7 +447,7 @@ public class MyMessageCellLayout: IMUIMessageCellLayout {
       return MyMessageCellLayout.incommingPadding
     }
   }
-  
+
 }
 
 

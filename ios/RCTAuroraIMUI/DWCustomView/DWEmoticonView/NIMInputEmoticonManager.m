@@ -73,7 +73,7 @@
 {
     if (self = [super init])
     {
-        [self parsePlist];
+        [self parsePlist:@"en"];
     }
     return self;
 }
@@ -184,13 +184,14 @@
     return res;
 }
 
-- (void)parsePlist
+- (void)parsePlist:(NSString *)locale
 {
     NSMutableArray *catalogs = [NSMutableArray array];
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"NIMKitEmoticon.bundle"
                                          withExtension:nil];
     NSBundle *bundle = [NSBundle bundleWithURL:url];
-    NSString *filepath = [bundle pathForResource:@"emoji" ofType:@"plist" inDirectory:NIMKit_EmojiPath];
+    NSString *emojFileName  =  [NSString stringWithFormat:@"emoji_%@",locale];
+    NSString *filepath = [bundle pathForResource:emojFileName ofType:@"plist" inDirectory:NIMKit_EmojiPath];
     if (filepath) {
         NSArray *array = [NSArray arrayWithContentsOfFile:filepath];
         for (NSDictionary *dict in array)

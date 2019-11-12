@@ -129,6 +129,11 @@
     return self;
 }
 
+- (void)setLocale:(NSString*)locale{
+    _locale = locale;
+    NSLog(@"DWInputBarControl:locale %@",locale);
+    [self creatUI];
+}
 
 - (void)setDefaultToolHeight:(CGFloat)defaultToolHeight{
     if (defaultToolHeight) {

@@ -44,6 +44,7 @@ typedef enum{
 @property (strong, nonatomic) HPGrowingTextView *inputGrowView;
 @property (strong, nonatomic) DWRecordButton *recordBtn;
 @property (assign, nonatomic) CGFloat defaultToolHeight;
+@property (assign, nonatomic) NSString *locale;
 @property (assign, nonatomic) CGFloat inputViewHeight;
 
 @property (assign, nonatomic) id<DWInputBarControlDelegate> delegate;

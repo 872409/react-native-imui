@@ -49,6 +49,7 @@ open class RCTMessageModel: IMUIMessageModel {
     static let kMsgKeyExtend = "extend"
   
   static let ktimeString = "timeString"
+  static let ktime = "time"
     static let kisShowTime = "isShowTime"
   
   
@@ -168,6 +169,7 @@ open class RCTMessageModel: IMUIMessageModel {
     let isOutgoing = messageDic.object(forKey: RCTMessageModel.kMsgKeyisOutgoing) as? Bool
     let timeString = messageDic.object(forKey: RCTMessageModel.ktimeString) as? String
     let timeStamp = messageDic.object(forKey: RCTMessageModel.ktimeString) as? String
+    let time = messageDic.object(forKey: RCTMessageModel.ktime) as? String
     let isShowTime = messageDic.object(forKey: RCTMessageModel.kisShowTime) as? Bool
 //    let isShowTime = true
     let needShowTime = isShowTime
@@ -176,7 +178,10 @@ open class RCTMessageModel: IMUIMessageModel {
     if needShowTime!{
         if let timeString = timeString {
             if timeString != "" {
-                strTime = RCTMessageModel.timeStampToString(timeStamp:timeString)
+                strTime = time!
+                //X
+                //strTime = RCTMessageModel.timeStampToString(timeStamp:timeString)
+                //strTime = timeString//RCTMessageModel.timeStampToString(timeStamp:timeString)
             }
         }
     }

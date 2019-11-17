@@ -35,6 +35,7 @@ class IMUICustomMessageContentCell: IMUIBaseMessageCell {
         super.presentCell(with: message, viewCache: viewCache, delegate: delegate)
         customView!.frame = bubbleView.bounds
         let tmpDict = message.customDict
+//        let strContent = tmpDict.object(forKey: "content") as! String
         let strContent = tmpDict.object(forKey: "content") as! String
         print("dongci:\(strContent)")
         customView!.loadHTMLString(strContent, baseURL: Bundle.main.bundleURL)

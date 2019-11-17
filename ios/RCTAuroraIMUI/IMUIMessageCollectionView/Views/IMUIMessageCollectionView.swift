@@ -77,6 +77,7 @@ open class IMUIMessageCollectionView: UIView {
     
 //    self.messageCollectionView.register(IMUITextMessageCell.self, forCellWithReuseIdentifier: IMUITextMessageCell.self.description())
     self.messageCollectionView.register(IMUITextMessageCell.self, forCellWithReuseIdentifier: "messageText")
+    self.messageCollectionView.register(IMUIRTCMessageCell.self, forCellWithReuseIdentifier: "rtc_call")
     self.messageCollectionView.register(IMUIImageMessageCell.self, forCellWithReuseIdentifier: IMUIImageMessageCell.self.description())
     self.messageCollectionView.register(IMUIVoiceMessageCell.self, forCellWithReuseIdentifier: IMUIVoiceMessageCell.self.description())
     self.messageCollectionView.register(IMUIVideoMessageCell.self, forCellWithReuseIdentifier: IMUIVideoMessageCell.self.description())
@@ -220,11 +221,15 @@ extension IMUIMessageCollectionView: UICollectionViewDelegate, UICollectionViewD
     var cellIdentify = ""
     let messageModel = self.chatDataManager[indexPath.item]
     
+    print("messageModel.type \(messageModel.type)")
     switch messageModel.type {
     case .text:
 //      cellIdentify = IMUITextMessageCell.self.description()
       cellIdentify = "messageText"
       break
+    case .rtc_call:
+        cellIdentify = "rtc_call"
+    break
     case .image:
       cellIdentify = IMUIImageMessageCell.self.description()
       break

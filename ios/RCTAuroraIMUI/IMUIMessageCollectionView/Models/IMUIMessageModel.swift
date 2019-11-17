@@ -23,6 +23,7 @@ import UIKit
   case account_notice
   case redpacketOpen
   case unknown
+  case rtc_call
   case custom
 }
 

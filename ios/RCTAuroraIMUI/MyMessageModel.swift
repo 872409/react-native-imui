@@ -22,6 +22,7 @@ open class RCTMessageModel: IMUIMessageModel {
 
   static let kMsgKeyMsgType = "msgType"
   static let kMsgTypeText = "text"
+    static let kMsgTypeRTCCall = "rtc_call"
   static let kMsgTypeVoice = "voice"
   static let kMsgTypeVideo = "video"
   static let kMsgTypeImage = "image"
@@ -217,6 +218,12 @@ open class RCTMessageModel: IMUIMessageModel {
       }else if typeString == RCTMessageModel.kMsgTypeImage {
         msgType = .image
         customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyExtend) as! NSMutableDictionary
+      }else if typeString == RCTMessageModel.kMsgTypeRTCCall {
+          msgType = .rtc_call
+          customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyExtend) as! NSMutableDictionary
+        textLayout = MyMessageCellLayout(isOutGoingMessage: isOutgoing!,
+        isNeedShowTime: needShowTime!,
+        bubbleContentSize: RCTMessageModel.calculateTextContentSize(text: text!, isOutGoing: isOutgoing!), bubbleContentInsets: UIEdgeInsets.zero, showAvatar:true)
       }else if typeString == RCTMessageModel.kMsgTypeVoice {
 
         msgType = .voice
@@ -331,6 +338,10 @@ open class RCTMessageModel: IMUIMessageModel {
       case .text:
         messageDic.setValue(RCTMessageModel.kMsgTypeText, forKey: RCTMessageModel.kMsgKeyMsgType)
         messageDic.setValue(self.text(), forKey: RCTMessageModel.kMsgKeyText)
+        break
+      case .rtc_call:
+        messageDic.setValue(RCTMessageModel.kMsgTypeRTCCall, forKey: RCTMessageModel.kMsgKeyMsgType)
+        messageDic.setValue(self.customDict, forKey: RCTMessageModel.kMsgKeyExtend)
         break
       case .image:
         messageDic.setValue(RCTMessageModel.kMsgTypeImage, forKey: RCTMessageModel.kMsgKeyMsgType)

@@ -221,7 +221,7 @@ extension IMUIMessageCollectionView: UICollectionViewDelegate, UICollectionViewD
     var cellIdentify = ""
     let messageModel = self.chatDataManager[indexPath.item]
     
-    print("messageModel.type \(messageModel.type)")
+//    print("messageModel.type \(messageModel.type)")
     switch messageModel.type {
     case .text:
 //      cellIdentify = IMUITextMessageCell.self.description()

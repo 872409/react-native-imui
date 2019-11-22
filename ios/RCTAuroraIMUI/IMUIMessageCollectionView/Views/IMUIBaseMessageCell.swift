@@ -259,7 +259,7 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
   @objc func longTapBubbleView(sender : UILongPressGestureRecognizer) {
 
     if sender.state == UIGestureRecognizer.State.began && self.message?.messageStatus != .sending{
-        if self.message?.type == .notification || self.message?.type == .redpacketOpen || self.message?.type == .unknown {
+        if self.message?.type == .notification || self.message?.type == .redpacketOpen || self.message?.type == .unknown  || self.message?.type == .rtc_call {
             return
         }
         let items = NSMutableArray.init()

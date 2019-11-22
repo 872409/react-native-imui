@@ -19,7 +19,7 @@ class IMUIViewCache {
    *
    */
   func dequeue(layout: IMUIMessageCellLayoutProtocal) -> IMUIMessageStatusViewProtocal {
-    print("in use count \(self.inUseStatusViews.count)  not in use count \(self.notInUseStatusViews.count)")
+//    print("in use count \(self.inUseStatusViews.count)  not in use count \(self.notInUseStatusViews.count)")
     
     if notInUseStatusViews.isEmpty {
       let view = layout.statusView as! UIView

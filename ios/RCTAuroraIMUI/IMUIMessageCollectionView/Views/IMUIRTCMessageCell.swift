@@ -10,67 +10,90 @@ import UIKit
 
 open class IMUIRTCMessageCell: IMUIBaseMessageCell {
 
-  @objc public static var outGoingTextColor = UIColor(netHex: 0x7587A8)
-  @objc public static var inComingTextColor = UIColor.white
-public static let screenW = UIScreen.main.bounds.size.width
-  
-  @objc  public static var outGoingTextFont = screenW<375 ? UIFont.systemFont(ofSize:15) : UIFont.systemFont(ofSize: (screenW * 16 / 375))
-  @objc public static var inComingTextFont = screenW<375 ? UIFont.systemFont(ofSize:15) : UIFont.systemFont(ofSize: (screenW * 16 / 375))
+//    @objc public static var outGoingTextColor = UIColor(netHex: 0x7587A8)
+//    @objc public static var inComingTextColor = UIColor.white
 
-    var textMessageLable = YYLabel()
+//    public static let screenW = UIScreen.main.bounds.size.width
 
-  
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-    self.bubbleView.addSubview(textMessageLable)
-    textMessageLable.numberOfLines = 1
-    textMessageLable.lineBreakMode = NSLineBreakMode.byWordWrapping
-    textMessageLable.backgroundColor = UIColor.clear
-    textMessageLable.font = IMUIRTCMessageCell.inComingTextFont
-    textMessageLable.isUserInteractionEnabled = true
-  }
-  
-  required public init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-  
-    
-  override open func layoutSubviews() {
-    super.layoutSubviews()
-  }
-  
-  override func presentCell(with message: IMUIMessageModelProtocol, viewCache: IMUIReuseViewCache, delegate: IMUIMessageMessageCollectionViewDelegate?) {
-    super.presentCell(with: message, viewCache: viewCache, delegate: delegate)
+//    @objc public static var outGoingTextFont = screenW < 375 ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: (screenW * 16 / 375))
+//    @objc public static var inComingTextFont = screenW < 375 ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: (screenW * 16 / 375))
 
-//    let tmpDict = message.customDict
-    let strContent = message.text();
-    
-    let layout = message.layout
-    self.layoutToText(with: strContent, isOutGoing: message.isOutGoing)
-    if (layout.bubbleFrame.size.height/21) > 1 {
-        self.textMessageLable.textAlignment = NSTextAlignment.left
-    }else{
-        self.textMessageLable.textAlignment = NSTextAlignment.center
+
+    fileprivate var conentLable = UILabel()
+    fileprivate var callTypeImg = UIImageView()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.bubbleView.addSubview(callTypeImg)
+        self.bubbleView.addSubview(conentLable)
+
     }
-    let textSize = self.textMessageLable.getTheLabel(CGSize(width: IMUIMessageCellLayout.bubbleMaxWidth, height: CGFloat(MAXFLOAT)))
-    let textX = layout.bubbleContentInset.left
-    let textY = (layout.bubbleFrame.height - textSize.height)*0.5
-    self.textMessageLable.frame = CGRect(origin: CGPoint(x:textX, y:textY), size: textSize)
-  }
 
-    
-  func layoutToText(with text: String, isOutGoing: Bool) {
-
-    if isOutGoing {
-        self.textMessageLable.setupYYText(text, andUnunderlineColor: UIColor.init(red: 187/255.0, green: 220/255.0, blue: 255/255.0, alpha: 1))
-        textMessageLable.textColor = UIColor.white
-        
-    } else {
-        self.textMessageLable.setupYYText(text, andUnunderlineColor: UIColor.init(red: 51/255, green: 51/255, blue: 51/255, alpha: 1))
-        textMessageLable.textColor = UIColor.init(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
-      
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
-  
-  }
+
+    override open func layoutSubviews() {
+        super.layoutSubviews()
+    }
+
+    override func presentCell(with message: IMUIMessageModelProtocol, viewCache: IMUIReuseViewCache, delegate: IMUIMessageMessageCollectionViewDelegate?) {
+        super.presentCell(with: message, viewCache: viewCache, delegate: delegate)
+//        print("(message.customDict)")
+//        let contentKey = message.isOutGoing ? "outgoing" : "incoming"
+//        let strContent = message.customDict.object(forKey: contentKey) as! String
+
+        var strContent = message.customDict.object(forKey: "content");
+        if ( strContent == nil || !(strContent is String)) {
+            let contentKey = message.isOutGoing ? "outgoing" : "incoming"
+            strContent = message.customDict.object(forKey: contentKey) as! String
+        }
+
+        let callType = message.customDict.object(forKey: "callType") as! Int
+
+        self.layoutToText(with: strContent as! String, isOutGoing: message.isOutGoing)
+        self.layoutToVoice(with: callType, isOutGoing: message.isOutGoing)
+
+    }
+
+
+    func layoutToText(with text: String, isOutGoing: Bool) {
+
+        let tmpLabel = YYLabel()
+        tmpLabel.setupYYText(text, andUnunderlineColor: UIColor.white)
+        tmpLabel.font = IMUITextMessageCell.inComingTextFont
+        let bubbleContentSize = tmpLabel.getTheLabelBubble(CGSize(width: IMUIMessageCellLayout.bubbleMaxWidth, height: 40))
+
+        conentLable.adjustsFontSizeToFitWidth = true
+
+        if isOutGoing {
+            conentLable.textColor = IMUITextMessageCell.inComingTextColor
+            conentLable.text = text
+//            conentLable.textAlignment = NSTextAlignment.right;
+            conentLable.frame = CGRect(x: 0, y: 0, width: bubbleContentSize.width, height: 20)
+            let xC = (bubbleContentSize.width / 2) + (bubbleView.frame.width - 30 - bubbleContentSize.width)
+            conentLable.center = CGPoint(x: xC, y: bubbleView.frame.height / 2)
+        } else {
+            conentLable.textColor = IMUITextMessageCell.outGoingTextColor
+            conentLable.text = text
+            conentLable.frame = CGRect(x: 0, y: 0, width: bubbleContentSize.width, height: 20)
+            conentLable.center = CGPoint(x: (bubbleContentSize.width / 2) + 35, y: bubbleView.frame.height / 2)
+        }
+
+    }
+
+
+    func layoutToVoice(with callType: Int, isOutGoing: Bool) {
+        let imgName = callType == 0 ? "video" : "voice"
+        if isOutGoing {
+            self.callTypeImg.image = UIImage.imuiImage(with: "outgoing_rtccall_" + imgName)
+            self.callTypeImg.frame = CGRect(x: 0, y: 0, width: 16, height: 16)
+            self.callTypeImg.center = CGPoint(x: bubbleView.frame.width - 20, y: bubbleView.frame.height / 2)
+        } else {
+            self.callTypeImg.image = UIImage.imuiImage(with: "incoming_rtccall_" + imgName)
+            self.callTypeImg.frame = CGRect(x: 0, y: 0, width: 16, height: 16)
+            self.callTypeImg.center = CGPoint(x: 20, y: bubbleView.frame.height / 2)
+        }
+    }
 
 }

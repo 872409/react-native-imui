@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		17DE4D7923A2303C00C14BE4 /* IMUIRTCMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DE4D7823A2303C00C14BE4 /* IMUIRTCMessageCell.swift */; };
 		4E1BA8841F39AB8400A15E62 /* NIMInputAtCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E1BA8821F39AB8400A15E62 /* NIMInputAtCache.h */; };
 		4E1BA8851F39AB8400A15E62 /* NIMInputAtCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1BA8831F39AB8400A15E62 /* NIMInputAtCache.m */; };
 		4E2678931F905E33007F3996 /* NIMInputEmoticonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E2678701F905C2F007F3996 /* NIMInputEmoticonParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -182,6 +183,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		17DE4D7823A2303C00C14BE4 /* IMUIRTCMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIRTCMessageCell.swift; sourceTree = "<group>"; };
 		4E1BA8821F39AB8400A15E62 /* NIMInputAtCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMInputAtCache.h; sourceTree = "<group>"; };
 		4E1BA8831F39AB8400A15E62 /* NIMInputAtCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMInputAtCache.m; sourceTree = "<group>"; };
 		4E26785E1F905C2F007F3996 /* YYTextContainerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYTextContainerView.h; sourceTree = "<group>"; };
@@ -667,6 +669,7 @@
 		4E77A38A1F30840000098CAF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				17DE4D7823A2303C00C14BE4 /* IMUIRTCMessageCell.swift */,
 				4E77A38C1F30840000098CAF /* IMUIBaseMessageCell.swift */,
 				4E4EB39F1F5112F6009A5AF8 /* IMUIBaseMessageHeadCell.swift */,
 				4E77A38D1F30840000098CAF /* IMUIImageMessageCell.swift */,
@@ -1010,6 +1013,7 @@
 				4E34C3391F3D45CA00AF4B73 /* IMUITransferMessageCell.swift in Sources */,
 				624B82941EE5710E006C3C03 /* RCTAuroraIMUIModule.m in Sources */,
 				4E77A3BA1F30840000098CAF /* IMUIMessageCellProtocal.swift in Sources */,
+				17DE4D7923A2303C00C14BE4 /* IMUIRTCMessageCell.swift in Sources */,
 				4E77A3B91F30840000098CAF /* IMUIMessageCellLayoutProtocal.swift in Sources */,
 				4E77A3B01F30840000098CAF /* IMUIChatLayout.swift in Sources */,
 				4E49ADEB1F346B7500B50439 /* NIMInputEmoticonContainerView.m in Sources */,

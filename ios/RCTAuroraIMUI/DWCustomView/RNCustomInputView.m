@@ -24,6 +24,8 @@ RCT_EXPORT_MODULE()
 
 //RCT_EXPORT_VIEW_PROPERTY(menuViewH, CGFloat);
 RCT_EXPORT_VIEW_PROPERTY(locale, NSString);
+RCT_EXPORT_VIEW_PROPERTY(placeholder, NSString);
+RCT_EXPORT_VIEW_PROPERTY(bgColor, NSString);
 RCT_EXPORT_VIEW_PROPERTY(defaultToolHeight, CGFloat);
 RCT_EXPORT_VIEW_PROPERTY(onFeatureView, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onShowKeyboard, RCTBubblingEventBlock)
@@ -34,6 +36,7 @@ RCT_EXPORT_VIEW_PROPERTY(onClickMention, RCTBubblingEventBlock)
 
 
 - (UIView *)view{
+     
     inpuntBar = [[DWInputBarControl alloc]init];
     inpuntBar.delegate = self;
     

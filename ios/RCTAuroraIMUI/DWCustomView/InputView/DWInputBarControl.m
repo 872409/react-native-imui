@@ -12,9 +12,13 @@
 #import "NIMInputAtCache.h"
 //#import "DWAudioRecorderManager.h"
 #import <AVFoundation/AVFoundation.h>
+#import <RCTAuroraIMUI/RCTAuroraIMUI-Swift.h>
 
 //#define toolBackColor [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1.0];
-#define toolBackColor [UIColor colorWithHue:0.29 saturation:0.00 brightness:0.96 alpha:1.00];
+//#define toolBackColor [UIColor colorWithHue:0.29 saturation:0.00 brightness:0.96 alpha:1.00];
+#define toolBackColor [UIColor colorWithRed:1.00 green:1.00 blue:1.00 alpha:1.0];
+//UIColor(red: 1.00, green: 1.00, blue: 1.00, alpha: 1.00) UIColor(red: 1.00, green: 1.00, blue: 1.00, alpha: 1.00)
+
 
 @interface DWInputBarControl ()<HPGrowingTextViewDelegate,NIMInputEmoticonProtocol>{
     UIView *line;
@@ -131,8 +135,22 @@
 
 - (void)setLocale:(NSString*)locale{
     _locale = locale;
-    NSLog(@"DWInputBarControl:locale %@",locale);
     [self creatUI];
+}
+
+
+- (void)seBgColor:(NSString*)bgColor{
+    _bgColor = bgColor;
+    UIColor *color = [UIColor hexStringToUIColorWithHex:bgColor];
+    self.toolView.backgroundColor =color;
+    line.backgroundColor = color;
+    self.inputGrowView.backgroundColor = color;
+    
+}
+
+- (void)setPlaceholder:(NSString*)placeholder{
+    _placeholder = placeholder;
+    self.inputGrowView.placeholder = placeholder;
 }
 
 - (void)setDefaultToolHeight:(CGFloat)defaultToolHeight{
@@ -165,7 +183,8 @@
     [self addSubview:_toolView];
     
     line = [[UIView alloc]init];
-    line.backgroundColor = [UIColor colorWithRed:235/255.0 green:235/255.0 blue:235/255.0 alpha:1.0];
+//    line.backgroundColor =  [UIColor colorWithRed:235/255.0 green:235/255.0 blue:235/255.0 alpha:1.0];
+    line.backgroundColor = toolBackColor;//[UIColor colorWithRed:235/255.0 green:235/255.0 blue:235/255.0 alpha:1.0];
     [_toolView addSubview:line];
     
     _showRecordeBtn = [[UIButton alloc]init];
@@ -174,7 +193,7 @@
     [_toolView addSubview:_showRecordeBtn];
     
     _inputGrowView = [[HPGrowingTextView alloc]init];
-    _inputGrowView.backgroundColor = [UIColor colorWithHue:0.29 saturation:0.00 brightness:1.00 alpha:1.00];
+    _inputGrowView.backgroundColor = toolBackColor;// [UIColor colorWithHue:0.29 saturation:0.00 brightness:1.00 alpha:1.00];
     _inputGrowView.layer.cornerRadius = 5.0f;
     _inputGrowView.layer.masksToBounds = YES;
     _inputGrowView.layer.borderColor = _toolView.backgroundColor.CGColor;
@@ -186,7 +205,8 @@
     _inputGrowView.enablesReturnKeyAutomatically = YES;
     _inputGrowView.font = [UIFont systemFontOfSize:15.0f];
     _inputGrowView.delegate = self;
-//    _inputGrowView.placeholder = @"点击输入文字";
+//    _inputGrowView.placeholder = _placeholder;
+     
     _inputGrowView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [_toolView addSubview:_inputGrowView];
     

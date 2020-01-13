@@ -41,7 +41,7 @@ dependencies {
     implementation 'com.google.zxing:core:3.3.0'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     testCompile 'junit:junit:4.12'
-    compile project(':react-native-imui:chatinput')
-    compile project(':react-native-imui:messagelist')
-    compile project(':react-native-imui:popuptool')
+    compile project(':react-native-imui-x:chatinput')
+    compile project(':react-native-imui-x:messagelist')
+    compile project(':react-native-imui-x:popuptool')
 }

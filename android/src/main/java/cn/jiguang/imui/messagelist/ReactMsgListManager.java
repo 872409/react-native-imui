@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -21,8 +22,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 
-import com.bumptech.glide.DrawableTypeRequest;
+//import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.target.Target;
 import com.dialog.CustomAlertDialog;
@@ -229,7 +231,7 @@ public class ReactMsgListManager extends ViewGroupManager<SmartRefreshLayout> im
                 if (string != null) {
                     try {
                         RequestManager m = Glide.with(reactContext);
-                        DrawableTypeRequest request;
+                        RequestBuilder<Drawable> request;
 
                         if (string.startsWith("http://") || string.startsWith("https://")) {
                             request = m.load(string);

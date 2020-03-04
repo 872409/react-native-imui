@@ -194,6 +194,7 @@
     
     _inputGrowView = [[HPGrowingTextView alloc]init];
     _inputGrowView.backgroundColor = toolBackColor;// [UIColor colorWithHue:0.29 saturation:0.00 brightness:1.00 alpha:1.00];
+    _inputGrowView.textColor = [UIColor blackColor];
     _inputGrowView.layer.cornerRadius = 5.0f;
     _inputGrowView.layer.masksToBounds = YES;
     _inputGrowView.layer.borderColor = _toolView.backgroundColor.CGColor;
